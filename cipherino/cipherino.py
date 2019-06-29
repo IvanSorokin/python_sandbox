@@ -48,12 +48,11 @@ if __name__ == "__main__":
     parser.add_argument("-m", help="Mode: d[ecipher] or c[ipher]", choices=["d", "c"])
     args = parser.parse_args()
 
+    data = get_bytes(args.i)
+    
     if args.m == "c":
-        data = get_bytes(args.i)
         shuffle_cipher(data, args.p)
-        write_bytes(args.o, data)
-
     if args.m == "d":
-        data = get_bytes(args.i)
         shuffle_decipher(data, args.p)
-        write_bytes(args.o, data)
+
+    write_bytes(args.o, data)
