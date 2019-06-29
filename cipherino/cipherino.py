@@ -12,23 +12,31 @@ def shuffle_cipher(source, password):
         source[i] = source[shift]
         source[shift] = temp
 
+        if (i % 1000000 == 0):
+            print("Process: {}/{}".format(i, length), end='\r')
+
+    print("Process: {}/{}".format(length, length))
     print("Done ciphering")
    
 def shuffle_decipher(source, password):
     print("Start deciphering")
     random.seed(password)
     length = len(source)
-    shifts = []
+    permutations = []
 
-    print("Generating shifts")
-    shifts = [random.randint(i, length - 1) for i in range(length)]
+    print("Generating permutations")
+    permutations = [random.randint(i, length - 1) for i in range(length)]
 
     print("Start deciphering")
     for i in range(length - 1, -1, -1):
         temp = source[i]
-        source[i] = source[shifts[i]]
-        source[shifts[i]] = temp
+        source[i] = source[permutations[i]]
+        source[permutations[i]] = temp
 
+        if (i % 1000000 == 0):
+            print("Process: {}/{}".format(i, length), end='\r')
+        
+    print("Process: {}/{}".format(length, length))
     print("Done deciphering")
 
 def get_bytes(path):
