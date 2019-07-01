@@ -19,7 +19,6 @@ def shuffle_cipher(source, password):
     print("Done ciphering")
    
 def shuffle_decipher(source, password):
-    print("Start deciphering")
     random.seed(password)
     length = len(source)
     permutations = []
