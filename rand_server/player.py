@@ -15,19 +15,20 @@ class Player:
     
     def say(self):
         text = random.choice(self.phrases)
-        obj = {'author' : self.author, 'text' : text}
-        result = requests.post(self.server_url + '/Send', json.dumps(obj))
+        data = {'author' : self.author, 'text' : text}
+        result = requests.post(self.server_url + '/Send', json.dumps(data))
         return result.ok
 
     def print_feed(self):
         while True:
             time.sleep(2)
-            obj = {'from' : str(self.last_check)}
+            data = {'from' : str(self.last_check)}
             self.last_check = str(datetime.utcnow())
-            result = requests.post(self.server_url + '/Feed', json.dumps(obj))
+            result = requests.post(self.server_url + '/Feed', json.dumps(data))
             new_messages =  json.loads(result.text)["messages"]
             for msg in new_messages:
                 print("{0}: {1}".format(msg["author"], msg["text"]))
+
 
 with open(sys.argv[3]) as f:
     phrases = f.readlines()
